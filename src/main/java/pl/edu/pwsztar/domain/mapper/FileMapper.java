@@ -11,7 +11,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 @Component
 public class FileMapper implements Converter<FileDto, InputStreamResource> {
 
@@ -27,7 +26,9 @@ public class FileMapper implements Converter<FileDto, InputStreamResource> {
                 .sorted(Comparator.comparing(MovieDto::getYear).reversed())
                 .collect(Collectors.toList());
 
-        FileDto sortedMovies = new FileDto(sortedMovieDtoList);
+        FileDto sortedMovies = new FileDto.Builder()
+                .movieList(sortedMovieDtoList)
+                .build();
 
         try {
             file = File.createTempFile("tmp", ".txt");
@@ -50,11 +51,10 @@ public class FileMapper implements Converter<FileDto, InputStreamResource> {
 
         try {
             bufferedWriter.close();
-
             fileOutputStream.flush();
             fileOutputStream.close();
-
             stream = new FileInputStream(file);
+
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -10,8 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.edu.pwsztar.service.MovieService;
 
-import java.io.*;
-
 @Service
 public class FileGeneratorImpl implements FileGenerator {
 
@@ -29,7 +27,9 @@ public class FileGeneratorImpl implements FileGenerator {
 
     @Override
     public InputStreamResource toTxt() {
-        FileDto fileDto = new FileDto(movieService.findAll());
+        FileDto fileDto = new FileDto.Builder()
+                .movieList(movieService.findAll())
+                .build();
         return fileMapper.convert(fileDto);
     }
 }
