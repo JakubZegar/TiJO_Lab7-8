@@ -14,16 +14,14 @@ public class MovieListMapper implements Converter<List<Movie>, List<MovieDto>> {
 
         return from.stream()
                 .map(movie -> {
-                    MovieDto movieDto = new MovieDto();
-
-                    movieDto.setMovieId(movie.getMovieId());
-                    movieDto.setTitle(movie.getTitle());
-                    movieDto.setImage(movie.getImage());
-                    movieDto.setYear(movie.getYear());
-
+                    MovieDto movieDto = new MovieDto.Builder()
+                            .movieId(movie.getMovieId())
+                            .title(movie.getTitle())
+                            .image(movie.getImage())
+                            .year(movie.getYear())
+                            .build();
                     return movieDto;
                 })
                 .collect(Collectors.toList());
-
     }
 }

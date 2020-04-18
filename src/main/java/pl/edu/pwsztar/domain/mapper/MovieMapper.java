@@ -11,11 +11,11 @@ public class MovieMapper implements Converter<CreateMovieDto, Movie> {
     @Override
     public Movie convert(CreateMovieDto createMovieDto) {
 
-        Movie movie = new Movie();
-        movie.setImage(createMovieDto.getImage());
-        movie.setTitle(createMovieDto.getTitle());
-        movie.setYear(createMovieDto.getYear());
+        Movie movie = new Movie.Builder()
+                .image(createMovieDto.getImage())
+                .title(createMovieDto.getTitle())
+                .year(createMovieDto.getYear())
+                .build();
         return movie;
-
     }
 }
